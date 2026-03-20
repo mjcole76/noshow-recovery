@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoShow Recovery | Stop Losing Money to Missed Appointments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-600: #475569;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--gray-900);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+        
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 18px;
+        }
+        
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--gray-50) 0%, white 100%);
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+        }
+        
+        .hero-content h1 span {
+            color: var(--primary);
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--gray-600);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 32px;
+        }
+        
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .calculator-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        
+        .calculator-subtitle {
+            color: var(--gray-600);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--gray-800);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .result-box {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+        }
+        
+        .result-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--danger);
+        }
+        
+        .result-value.recovered {
+            color: var(--success);
+        }
+        
+        .problem {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 48px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            color: var(--gray-600);
+            font-size: 18px;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        
+        .problem-card {
+            background: white;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+        }
+        
+        .problem-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+        
+        .problem-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .problem-card p {
+            color: var(--gray-600);
+            font-size: 15px;
+        }
+        
+        .solution {
+            padding: 80px 0;
+            background: var(--gray-900);
+            color: white;
+        }
+        
+        .solution .section-header h2 {
+            color: white;
+        }
+        
+        .solution .section-header p {
+            color: var(--gray-400);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+        
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 32px;
+        }
+        
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .feature-card p {
+            color: var(--gray-400);
+            font-size: 15px;
+        }
+        
+        .pricing {
+            padding: 80px 0;
+            background: var(--gray-50);
+        }
+        
+        .pricing-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 48px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 2px solid var(--primary);
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--gray-900);
+        }
+        
+        .price span {
+            font-size: 16px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin: 32px 0;
+            text-align: left;
+        }
+        
+        .pricing-card li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        
+        .pricing-card li::before {
+            content: "✓";
+            color: var(--success);
+            margin-right: 12px;
+            font-weight: 700;
+        }
+        
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            color: var(--gray-600);
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+        
+        footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--gray-600);
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">NoShow<span>Recovery</span></a>
+                <a href="#pricing" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <h1>Stop Losing <span>$1,000s</span> to Missed Appointments</h1>
+                    <p class="hero-subtitle">Automated SMS + email reminders that cut no-shows by 60%. Works with your existing booking system. Setup in 48 hours.</p>
+                    <div class="hero-cta">
+                        <a href="#calculator" class="btn btn-primary btn-large">Calculate Your Losses</a>
+                        <a href="#pricing" class="btn btn-large" style="background: white; border: 2px solid var(--gray-200); color: var(--gray-800);">See Pricing</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">60%</div>
+                            <div class="stat-label">No-show reduction</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">48hrs</div>
+                            <div class="stat-label">Setup time</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">$2.4k</div>
+                            <div class="stat-label">Avg monthly savings</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="calculator-card" id="calculator">
+                    <h3>No-Show Cost Calculator</h3>
+                    <p class="calculator-subtitle">See how much money you're losing</p>
+                    
+                    <div class="form-group">
+                        <label>Appointments per week</label>
+                        <input type="number" id="appointments" placeholder="e.g. 40" oninput="calculateLoss()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>No-show rate (%)</label>
+                        <input type="number" id="noshowRate" placeholder="e.g. 20" oninput="calculateLoss()">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Average appointment value ($)</label>
+                        <input type="number" id="avgValue" placeholder="e.g. 150" oninput="calculateLoss()">
+                    </div>
+                    
+                    <div class="result-box" id="resultBox" style="display: none;">
+                        <div class="result-label">You're losing per month</div>
+                        <div class="result-value" id="monthlyLoss">$0</div>
+                    </div>
+                    
+                    <div class="result-box" id="recoveredBox" style="display: none; background: rgba(16, 185, 129, 0.1);">
+                        <div class="result-label">Potential recovered (60%)</div>
+                        <div class="result-value recovered" id="recoveredAmount">$0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>The No-Show Problem</h2>
+                <p>Every missed appointment is lost revenue you can't get back</p>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Direct Revenue Loss</h3>
+                    <p>A $150 appointment that doesn't show is $150 gone forever. No product sold, no service delivered.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">⏰</div>
+                    <h3>Staff Time Wasted</h3>
+                    <p>Your team showed up, the room is ready, but the client ghosted. That time can't be resold.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">📉</div>
+                    <h3>Cascade Effect</h3>
+                    <p>One no-show throws off your whole schedule. Late appointments, rushed work, unhappy clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution">
+        <div class="container">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Simple automated reminders that actually get responses</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📱 Smart SMS Reminders</h3>
+                    <p>Text messages at optimal times (24hr, 2hr before). Personalized with client name and appointment details. Two-tap confirm/reschedule.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📧 Email Backup Sequence</h3>
+                    <p>Automated email reminders for clients who don't respond to SMS. Different message, same clear call-to-action.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>✅ Intake Form Check</h3>
+                    <p>Detects missing forms before appointment. Triggers "complete your paperwork" reminder. Reduces delays and cancellations.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Daily Dashboard</h3>
+                    <p>See at-risk appointments, no-response list, recovered bookings. Know exactly what's happening today.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Simple Pricing</h2>
+                <p>Done-for-you setup. No monthly commitment required.</p>
+            </div>
+            <div class="pricing-card">
+                <div class="price">$497<span>one-time</span></div>
+                <p style="color: var(--gray-600); margin-bottom: 24px;">Complete setup + 30 days support</p>
+                <ul>
+                    <li>SMS reminder system setup</li>
+                    <li>Email sequence configuration</li>
+                    <li>Integration with your booking system</li>
+                    <li>Intake form completion tracking</li>
+                    <li>Staff dashboard training</li>
+                    <li>30 days of support</li>
+                </ul>
+                <a href="#" class="btn btn-primary btn-large" style="width: 100%;">Get Started</a>
+                <p style="color: var(--gray-600); font-size: 14px; margin-top: 16px;">Optional: $49/month for ongoing management</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Stop Losing Money?</h2>
+            <p>Join 50+ businesses already using NoShow Recovery</p>
+            <a href="#" class="btn btn-primary btn-large">Book Your Setup Call</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 NoShow Recovery. Built for local service businesses.</p>
+        </div>
+    </footer>
+
+    <script>
+        function calculateLoss() {
+            const appointments = parseFloat(document.getElementById('appointments').value) || 0;
+            const noshowRate = parseFloat(document.getElementById('noshowRate').value) || 0;
+            const avgValue = parseFloat(document.getElementById('avgValue').value) || 0;
+            
+            if (appointments && noshowRate && avgValue) {
+                const weeklyLoss = appointments * (noshowRate / 100) * avgValue;
+                const monthlyLoss = weeklyLoss * 4.3;
+                const recovered = monthlyLoss * 0.6;
+                
+                document.getElementById('monthlyLoss').textContent = '$' + Math.round(monthlyLoss).toLocaleString();
+                document.getElementById('recoveredAmount').textContent = '$' + Math.round(recovered).toLocaleString();
+                
+                document.getElementById('resultBox').style.display = 'block';
+                document.getElementById('recoveredBox').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
